@@ -1,5 +1,5 @@
-JTS Topology Suite
-==================
+JTS Topology Suite (for Java 7)
+===============================
 
 **This fork backports JTS Topology Suite to Java 7.**
 
@@ -18,7 +18,7 @@ JTS is a project in the [LocationTech](http://www.locationtech.org) working grou
 
 ## Requirements
 
-Currently JTS targets Java 1.8 and above.
+Currently JTS targets Java 1.7 and above.
 
 ## Resources
 
