@@ -1,6 +1,8 @@
 JTS Topology Suite
 ==================
 
+**This fork backports JTS Topology Suite to Java 7.**
+
 The JTS Topology Suite is a Java library for creating and manipulating vector geometry.  It also provides a comprehensive set of geometry test cases, and the TestBuilder GUI application for working with and visualizing geometry and JTS functions.
 
 ![JTS logo](jts_logo.png)

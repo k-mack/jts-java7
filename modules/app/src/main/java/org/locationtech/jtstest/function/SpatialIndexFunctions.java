@@ -133,7 +133,7 @@ public class SpatialIndexFunctions
     return geoms.getFactory().buildGeometry(result);
   }
 
-  private static void loadIndex(Geometry geom, SpatialIndex index) {
+  private static void loadIndex(Geometry geom, final SpatialIndex index) {
     geom.apply(new GeometryFilter() {
 
       public void filter(Geometry geom) {

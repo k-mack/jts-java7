@@ -147,7 +147,7 @@ public class SelectionFunctions
     });
   }
   
-  public static Geometry withinDistance(Geometry a, final Geometry mask, double maximumDistance)
+  public static Geometry withinDistance(Geometry a, final Geometry mask, final double maximumDistance)
   {
     return select(a, new GeometryPredicate() {
       public boolean isTrue(Geometry g) {
@@ -156,9 +156,9 @@ public class SelectionFunctions
     });
   }
 
-  public static Geometry withinDistanceIndexed(Geometry a, final Geometry mask, double maximumDistance)
+  public static Geometry withinDistanceIndexed(Geometry a, final Geometry mask, final double maximumDistance)
   {
-    IndexedFacetDistance indexedDist = new IndexedFacetDistance(mask);
+    final IndexedFacetDistance indexedDist = new IndexedFacetDistance(mask);
     return select(a, new GeometryPredicate() {
       public boolean isTrue(Geometry g) {
         boolean isWithinDist = indexedDist.isWithinDistance(g, maximumDistance);

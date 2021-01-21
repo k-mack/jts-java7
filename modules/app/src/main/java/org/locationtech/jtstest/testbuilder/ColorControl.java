@@ -27,8 +27,8 @@ public class ColorControl {
     void colorChanged(Color clr);
   }
   
-  public static JPanel create(Component comp, String title, Color initColor, ColorListener colorListener) {
-    JPanel ctl = new JPanel();
+  public static JPanel create(final Component comp, final String title, Color initColor, final ColorListener colorListener) {
+    final JPanel ctl = new JPanel();
     ctl.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
     
     Dimension dim = new Dimension(20, 20);

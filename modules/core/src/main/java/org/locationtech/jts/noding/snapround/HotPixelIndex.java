@@ -86,6 +86,11 @@ class HotPixelIndex {
       indices[j] = indices[index--];
       return res;
     }
+
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException("remove");
+    }
   }
 
   /**

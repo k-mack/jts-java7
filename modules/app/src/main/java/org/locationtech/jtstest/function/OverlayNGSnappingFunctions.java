@@ -44,7 +44,7 @@ public class OverlayNGSnappingFunctions {
   
 
 
-  public static Geometry unaryUnion(Geometry a, double tolerance) {
+  public static Geometry unaryUnion(Geometry a, final double tolerance) {
     UnionStrategy unionSRFun = new UnionStrategy() {
 
       public Geometry union(Geometry g0, Geometry g1) {
@@ -66,7 +66,7 @@ public class OverlayNGSnappingFunctions {
     return OverlayNG.overlay(a, b, UNION, null, new SnappingNoder(tolerance) );
   }
   
-  public static Geometry unaryUnionNoValid(Geometry a, double tolerance) {
+  public static Geometry unaryUnionNoValid(Geometry a, final double tolerance) {
     UnionStrategy unionSRFun = new UnionStrategy() {
 
       public Geometry union(Geometry g0, Geometry g1) {

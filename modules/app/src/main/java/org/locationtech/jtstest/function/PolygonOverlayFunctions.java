@@ -37,7 +37,7 @@ public class PolygonOverlayFunctions
       @Metadata(title="Scale factor")
       double scale)
   {
-    PrecisionModel pm = new PrecisionModel(scale);
+    final PrecisionModel pm = new PrecisionModel(scale);
     return computeOverlay(g1, g2, new Noder() {
       public Geometry node(Geometry inputLines) {
        return OverlayNG.overlay(inputLines, null, OverlayNG.UNION, pm);

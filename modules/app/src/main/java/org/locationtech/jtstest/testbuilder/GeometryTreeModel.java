@@ -15,6 +15,7 @@ package org.locationtech.jtstest.testbuilder;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
@@ -363,7 +364,7 @@ class PolygonNode extends GeometryNode
           "Hole " + i, context));
     }
     if (context.isSorted()) {
-      children.sort(context.getComparator());
+      Collections.sort(children, context.getComparator());
     }
     children.add(0, new LinearRingNode((LinearRing) poly.getExteriorRing(),
         "Shell", context));
@@ -481,7 +482,7 @@ class GeometryCollectionNode extends GeometryNode
       children.add(node);
     }
     if (context.isSorted()) {
-      children.sort(context.getComparator());
+      Collections.sort(children, context.getComparator());
     }
   }
   

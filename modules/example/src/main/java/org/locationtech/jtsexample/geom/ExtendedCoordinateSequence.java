@@ -24,7 +24,7 @@ import org.locationtech.jts.geom.*;
  * @version 1.7
  */
 public class ExtendedCoordinateSequence
-    implements CoordinateSequence
+    extends AbstractCoordinateSequence
 {
   public static ExtendedCoordinate[] copy(Coordinate[] coordinates)
   {

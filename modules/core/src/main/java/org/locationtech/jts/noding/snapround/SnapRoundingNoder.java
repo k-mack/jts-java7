@@ -242,7 +242,7 @@ public class SnapRoundingNoder
    * @param ss the segment string to add intersections to
    * @param segIndex the index of the segment
    */
-  private void snapSegment(Coordinate p0, Coordinate p1, NodedSegmentString ss, int segIndex) {
+  private void snapSegment(final Coordinate p0, final Coordinate p1, final NodedSegmentString ss, final int segIndex) {
     pixelIndex.query(p0, p1, new KdNodeVisitor() {
 
       @Override
@@ -289,7 +289,7 @@ public class SnapRoundingNoder
     }
   }
 
-  private void snapVertexNode(Coordinate p0, NodedSegmentString ss, int segIndex) {
+  private void snapVertexNode(final Coordinate p0, final NodedSegmentString ss, final int segIndex) {
     pixelIndex.query(p0, p0, new KdNodeVisitor() {
 
       @Override

@@ -41,13 +41,6 @@ public class IndexedPointInAreaPerfTest extends PerformanceTestCase {
       coords.add(new Coordinate(rand.nextDouble()*100, rand.nextDouble()*100));
     }
   }
-  
-  public void runParallel() {
-    for (int i = 0; i < 1000; i++) {
-      IndexedPointInAreaLocator locator = new IndexedPointInAreaLocator(polygon);
-      coords.parallelStream().forEach(c -> isInside(locator, c));
-    }
-  }
       
   private boolean isInside(IndexedPointInAreaLocator locator, Coordinate coord) {
     return locator.locate(coord) == Location.INTERIOR;

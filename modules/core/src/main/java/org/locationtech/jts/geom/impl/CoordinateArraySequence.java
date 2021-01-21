@@ -30,7 +30,7 @@ import org.locationtech.jts.geom.*;
  * @version 1.7
  */
 public class CoordinateArraySequence
-    implements CoordinateSequence, Serializable
+    extends AbstractCoordinateSequence implements Serializable
 {
   //With contributions from Markus Schaber [schabios@logi-track.com] 2004-03-26
   private static final long serialVersionUID = -915438501601840650L;

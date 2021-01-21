@@ -13,6 +13,7 @@ package org.locationtech.jts.geom.impl;
 
 import java.io.Serializable;
 
+import org.locationtech.jts.geom.AbstractCoordinateSequenceFactory;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateSequence;
 import org.locationtech.jts.geom.CoordinateSequenceFactory;
@@ -24,8 +25,8 @@ import org.locationtech.jts.geom.Coordinates;
  * <code>double</code> or <code>float</code>, 
  * and defaults to <code>double</code>.
  */
-public class PackedCoordinateSequenceFactory implements
-    CoordinateSequenceFactory, Serializable
+public class PackedCoordinateSequenceFactory
+    extends AbstractCoordinateSequenceFactory implements Serializable
 {
   private static final long serialVersionUID = -3558264771905224525L;
   

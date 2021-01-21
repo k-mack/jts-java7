@@ -92,9 +92,7 @@ public interface CoordinateSequence
    *
    * @return the number of measures included in dimension
    */
-  default int getMeasures() {
-    return 0;
-  }
+  int getMeasures();
   
   /**
    * Checks {@link #getDimension()} and {@link #getMeasures()} to determine if {@link #getZ(int)}
@@ -102,9 +100,7 @@ public interface CoordinateSequence
    * 
    * @return true if {@link #getZ(int)} is supported.
    */
-  default boolean hasZ() {
-      return (getDimension()-getMeasures()) > 2;
-  }
+  boolean hasZ();
 
   /**
    * Tests whether the coordinates in the sequence have measures associated with them. Returns true
@@ -116,9 +112,7 @@ public interface CoordinateSequence
    * @see #getMeasures()
    * @see #getM(int)
    */
-  default boolean hasM() {
-      return getMeasures() > 0;
-  }
+  boolean hasM();
 
   /**
    * Creates a coordinate for use in this sequence.
@@ -128,9 +122,7 @@ public interface CoordinateSequence
    * </p>
    * @return coordinate for use with this sequence
    */
-  default Coordinate createCoordinate() {
-    return Coordinates.create(getDimension(), getMeasures());
-  }
+   Coordinate createCoordinate();
   
   /**
    * Returns (possibly a copy of) the i'th coordinate in this sequence.
@@ -189,14 +181,7 @@ public interface CoordinateSequence
    * @param index
    * @return the value of the Z ordinate in the index'th coordinate, or Double.NaN if not defined.
    */
-  default double getZ(int index)
-  {
-    if (hasZ()) {
-        return getOrdinate(index, 2);
-    } else {
-        return Double.NaN;
-    }
-  }
+  double getZ(int index);
 
   /**
    * Returns ordinate M of the specified coordinate if available.
@@ -204,16 +189,7 @@ public interface CoordinateSequence
    * @param index
    * @return the value of the M ordinate in the index'th coordinate, or Double.NaN if not defined.
    */
-  default double getM(int index)
-  {
-    if (hasM()) {
-      final int mIndex = getDimension()-getMeasures();
-      return getOrdinate( index, mIndex );
-    }
-    else {
-        return Double.NaN;
-    }
-  }
+  double getM(int index);
   
   /**
    * Returns the ordinate of a coordinate in this sequence.

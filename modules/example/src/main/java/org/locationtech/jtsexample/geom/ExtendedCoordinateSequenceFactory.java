@@ -21,7 +21,7 @@ import org.locationtech.jts.geom.*;
  * @version 1.7
  */
 public class ExtendedCoordinateSequenceFactory
-    implements CoordinateSequenceFactory
+    extends AbstractCoordinateSequenceFactory
 {
     private static ExtendedCoordinateSequenceFactory instance = new ExtendedCoordinateSequenceFactory();
 

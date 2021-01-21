@@ -53,7 +53,7 @@ public class FilesUtil {
     return filenames;
   }
   
-  public static List expand(File fileOrDir, String fileExtension) {
+  public static List expand(File fileOrDir, final String fileExtension) {
     List filenames = new ArrayList();
     if (fileOrDir.isDirectory()) {
       File[] files = fileOrDir.listFiles(new FilenameFilter() {

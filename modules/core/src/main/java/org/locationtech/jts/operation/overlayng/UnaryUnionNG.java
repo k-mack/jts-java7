@@ -42,7 +42,7 @@ public class UnaryUnionNG {
    * @param pm the precision model to use
    * @return the union of the geometries
    */
-  public static Geometry union(Geometry geom, PrecisionModel pm) {
+  public static Geometry union(Geometry geom, final PrecisionModel pm) {
     UnionStrategy unionSRFun = new UnionStrategy() {
 
       public Geometry union(Geometry g0, Geometry g1) {

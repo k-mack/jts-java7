@@ -13,6 +13,7 @@
 package org.locationtech.jts.algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -255,8 +256,8 @@ public class InteriorPointArea {
       
       // TODO: is there a better way to verify the crossings are correct?
       Assert.isTrue(0 == crossings.size() % 2, "Interior Point robustness failure: odd number of scanline crossings");
-      
-      crossings.sort(Double::compare);
+
+      Collections.sort(crossings);
       /*
        * Entries in crossings list are expected to occur in pairs representing a
        * section of the scan line interior to the polygon (which may be zero-length)

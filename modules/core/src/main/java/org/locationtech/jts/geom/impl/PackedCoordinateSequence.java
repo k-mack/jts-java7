@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.lang.ref.SoftReference;
 import java.util.Arrays;
 
+import org.locationtech.jts.geom.AbstractCoordinateSequence;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateSequence;
 import org.locationtech.jts.geom.CoordinateSequences;
@@ -39,7 +40,7 @@ import org.locationtech.jts.geom.Envelope;
  * @version 1.7
  */
 public abstract class PackedCoordinateSequence
-    implements CoordinateSequence, Serializable
+    extends AbstractCoordinateSequence implements Serializable
 {
   private static final long serialVersionUID = -3151899011275603L;
   /**

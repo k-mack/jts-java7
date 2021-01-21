@@ -12,6 +12,7 @@
 package org.locationtech.jtstest.testbuilder.geom;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class ConstrainedInteriorPoint {
     // TODO: check if constraint does not overlap poly - return empty if so
     scanY = findScanY(poly, constraint);
     scan(poly);
-    crossings.sort(new DoubleComparator());
+    Collections.sort(crossings, new DoubleComparator());
     Coordinate pt = findBestMidpoint();
     return pt;
   }

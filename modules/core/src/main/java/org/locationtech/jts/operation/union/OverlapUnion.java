@@ -291,7 +291,7 @@ public class OverlapUnion
           p.getY() < env.getMaxY();
   }
 
-  private static void extractBorderSegments(Geometry geom, Envelope env, List<LineSegment> segs) {
+  private static void extractBorderSegments(Geometry geom, final Envelope env, final List<LineSegment> segs) {
     geom.apply(new CoordinateSequenceFilter() {
 
       public void filter(CoordinateSequence seq, int i) {

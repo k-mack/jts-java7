@@ -46,7 +46,7 @@ public class KMLReader {
      * Creates a reader that creates objects using the default {@link GeometryFactory}.
      */
     public KMLReader() {
-        this(new GeometryFactory(), Collections.emptyList());
+        this(new GeometryFactory(), Collections.<String>emptyList());
     }
 
     /**
@@ -56,7 +56,7 @@ public class KMLReader {
      * @param geometryFactory the factory used to create <code>Geometry</code>s.
      */
     public KMLReader(GeometryFactory geometryFactory) {
-        this(geometryFactory, Collections.emptyList());
+        this(geometryFactory, Collections.<String>emptyList());
     }
 
     /**
@@ -78,7 +78,7 @@ public class KMLReader {
     public KMLReader(GeometryFactory geometryFactory, Collection<String> attributeNames) {
         this.geometryFactory = geometryFactory;
         this.attributeNames = attributeNames == null
-                ? Collections.emptySet()
+                ? Collections.<String>emptySet()
                 : new HashSet<>(attributeNames);
     }
 

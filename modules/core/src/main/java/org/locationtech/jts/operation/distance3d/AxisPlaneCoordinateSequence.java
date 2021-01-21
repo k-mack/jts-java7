@@ -12,6 +12,7 @@
 
 package org.locationtech.jts.operation.distance3d;
 
+import org.locationtech.jts.geom.AbstractCoordinateSequence;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateSequence;
 import org.locationtech.jts.geom.Envelope;
@@ -27,7 +28,7 @@ import org.locationtech.jts.geom.Envelope;
  * @author mdavis
  *
  */
-public class AxisPlaneCoordinateSequence implements CoordinateSequence {
+public class AxisPlaneCoordinateSequence extends AbstractCoordinateSequence {
 
 	/**
 	 * Creates a wrapper projecting to the XY plane.
