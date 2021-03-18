@@ -17,9 +17,44 @@ Distributions for older JTS versions can be obtained at the
 
 <!-- ================================================================ -->
 
+# Version 1.18.1
+
+*Release Date:  02/26/2021*
+
+### Functionality Improvements
+
+* Check for invalid polygonal geometry before fixing in `DouglasPeuckerSimplifier`, `VWSimplifier`, `Densifier` (#656)
+* Add `Coordinate` and subclasses `create()` methods (#637)
+* Ensure OverlayNG input line order is preserved (#665)
+* Add `UnaryUnionNG` functions that accept `Collection`s (#669 and #670)
+* Switch to using compact-SRID WKB format (#664)
+* Improve `WKBReader` error checking (#675)
+* Improve `Densifier` splitting algorithm to create longer segments (#677)
+* Allow constructing invalid `Polygon`s and `LinearRing`s with only 3 vertices (#682)
+* Ensure invalid 3-point polygons and rings are handled correctly (#683)
+* Fix `GeoJSONReader` to parse null and empty coordinates as empty geometry (#687) 
+* Fix `GeoJSONWriter` to emit empty coordinates array for empty point and linestring (#688)
+* Add `MaximumInscribedCircle` check for invalid tolerance, to avoid infinite loops (#696)
+* Add `GeoJsonWriter.setForceCCW` method to emit polygons with CCW orientation, as per GeoJSON specification (#694)
+
+### Bug Fixes
+
+* Ensure `Densifier` creates `Coordinate`s with same class as input (#637)
+* Fix Relate for cases with closed linear geometry and empty geometry (#671)
+* Fix `Densifier` to avoid splitting segments with length equal to distance tolerance (#676)
+* Fix `Geometry.compareTo` to test polygon holes (#678) 
+* Fix OverlayNG handling of polygons with interior flat lines (#685)
+* Fix `Polygonizer` to avoid NPE on invalid input (#692)
+
+### WKBDump
+
+* Added utility to dump out formatted WKB (#673)
+
+<!-- ================================================================ -->
+
 # Version 1.18.0
 
-*Release Date:  TBD*
+*Release Date:  12/23/2020*
 
 ### API Changes
 
@@ -603,11 +638,9 @@ and `PerformanceTestCase`)
 ### Functionality Improvements
 
 * Added new names for methods for computing `Geometry` equality:
-* `equals(Object)` is a synonym for `equalsExact(Geometry)`
-* `equalsNorm(Geometry)` automatically normalizes the operands
-* `equalsTopo(Geometry)` computes topological equality,
-and is a synonym for the original `equals(Geometry)`
-
+  * `equals(Object)` is a synonym for `equalsExact(Geometry)`
+  * `equalsNorm(Geometry)` automatically normalizes the operands
+  * `equalsTopo(Geometry)` computes topological equality, and is a synonym for the original `equals(Geometry)`
 * Added `Geometry.norm()` to provide non-mutating normalization
 * Added `Geometry.hashCode()` to fulfill Java conventions
 * Added `LineIntersector.getEndpoint()` method
@@ -626,7 +659,7 @@ and is a synonym for the original `equals(Geometry)`
 * Added `MathUtil` containing mathematics and numerical utility functions
 * Added `Vector2D` class providing vector operations
 * Added `DirectedEdgeStar.getNextCWEdge()` method to `planargraph` API
-* `AffineTransformation` enhanced to avoid numeric precision issues in case of reflection in X=Y (coordinate flipping)
+* Improved `AffineTransformation` to avoid numeric precision issues in case of reflection in X=Y (coordinate flipping)
 * Added `LineSequencer.sequence()` static convenience method
 * Added error indicators to `BufferDistanceValidator` and `BufferResultValidator`
 * Added `MinimumClearance` class
@@ -1050,7 +1083,7 @@ causing failure if input contained all GeometryCollections of the same subclass
 ### Bug Fixes
 
 * Fixed bug in `CoordinateArrays.ptNotInList`.
-Changed `polygonize.EdgeRing` to used corrected code.
+  Changed `polygonize.EdgeRing` to used corrected code.
 * Fixed bug causing duplicate points in `ScaledNoder`
 * Fixed bug causing Null Pointer for empty geometries in `OraWriter`
 * Changed AssertFailure to TopologyException in `EdgeNode`
@@ -1072,9 +1105,9 @@ Changed `polygonize.EdgeRing` to used corrected code.
 * Fixed null point cloning bug in `TopologyValidationError` (*thanks to Markus Gebhard*)
 * Fixed bug in `PointLocator` fix for LinearRings
 * Fixed bug in `Geometry.isValid` and `IsValidOp` causing some valid polygons
-to be reported as having a Disconnected Interior (specifically, polygons containing
-holes touching at a single point, where the point is the highest point in the hole rings, and where the holes
-have a specific orientation)
+  to be reported as having a Disconnected Interior (specifically, polygons containing
+  holes touching at a single point, where the point is the highest point in the hole rings, and where the holes
+  have a specific orientation)
 * Fixed bug in `Polygon.isRectangle`, which reported some valid rectangles as false
 
 

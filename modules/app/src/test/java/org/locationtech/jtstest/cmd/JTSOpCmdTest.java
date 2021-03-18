@@ -94,20 +94,47 @@ public class JTSOpCmdTest extends TestCase {
     runCmd( args("-f", "wkt", "CreateRandomShape.randomPoints", "10"), 
         "MULTIPOINT" );
   }
+  
+  public void testCollectUnion() {
+    runCmd( args("-a", "stdin", 
+                "-collect", 
+                "-f", "wkt", "Overlay.unaryUnion"), 
+        stdin(new String[] {
+            "POLYGON ((1 3, 3 3, 3 1, 1 1, 1 3))",
+            "POLYGON ((5 3, 5 1, 3 1, 3 3, 5 3))"
+        }),
+        "POLYGON ((1 3, 3 3, 5 3, 5 1, 3 1, 1 1, 1 3))" );
+    
+  }
+  
+  public void testCollectLimitUnion() {
+    runCmd( args("-a", "stdin", 
+                "-collect", 
+                "-limit", "2",
+                "-f", "wkt", "Overlay.unaryUnion"), 
+        stdin(new String[] {
+            "POLYGON ((1 3, 3 3, 3 1, 1 1, 1 3))",
+            "POLYGON ((5 3, 5 1, 3 1, 3 3, 5 3))",
+            "POLYGON ((1 5, 5 5, 5 3, 1 3, 1 5))"
+        }),
+        "POLYGON ((1 3, 3 3, 5 3, 5 1, 3 1, 1 1, 1 3))" );
+    
+  }
+
   //===========================================
 
   public void testOpEachA() {
     runCmd( args("-a", "MULTILINESTRING((0 0, 10 10), (100 100, 110 110))", 
-        "-each", "a",
+        "-eacha",
         "-f", "wkt", "envelope"), 
         "POLYGON ((0 0, 0 10, 10 10, 10 0, 0 0))\nPOLYGON ((100 100, 100 110, 110 110, 110 100, 100 100))" );
   }
 
-  public void testOpEachAB() {
+  public void testOpEachAEachB() {
     runCmd( args(
         "-a", "MULTIPOINT((0 0), (0 1))", 
         "-b", "MULTIPOINT((9 9), (8 8))", 
-        "-each", "ab",
+        "-eacha", "-eachb",
         "-f", "wkt", "Distance.nearestPoints"), 
         "LINESTRING (0 0, 9 9)\nLINESTRING (0 0, 8 8)\nLINESTRING (0 1, 9 9)\nLINESTRING (0 1, 8 8)" );
   }
@@ -116,15 +143,15 @@ public class JTSOpCmdTest extends TestCase {
     runCmd( args(
         "-a", "MULTIPOINT((0 0), (0 1))", 
         "-b", "MULTIPOINT((9 9), (8 8))", 
-        "-each", "b",
+        "-eachb",
         "-f", "wkt", "Distance.nearestPoints" ), 
         "LINESTRING (0 1, 9 9)\nLINESTRING (0 1, 8 8)" );
   }
 
   public void testOpEachAA() {
     runCmd( args(
-        "-a", "MULTIPOINT((0 0), (0 1))", 
-        "-each", "aa",
+        "-ab", "MULTIPOINT((0 0), (0 1))", 
+        "-eacha",
         "-f", "wkt", "Distance.nearestPoints"), 
         "LINESTRING (0 0, 0 0)\nLINESTRING (0 0, 0 1)\nLINESTRING (0 1, 0 0)\nLINESTRING (0 1, 0 1)" );
   }
@@ -133,7 +160,7 @@ public class JTSOpCmdTest extends TestCase {
     runCmd( args(
         "-a", "MULTILINESTRING((0 0, 5 5), (10 0, 15 5))", 
         "-b", "MULTIPOINT((1 1), (11 1))", 
-        "-each", "ab",
+        "-eacha", "-eachb",
         "-index",
         "-f", "wkt", "Distance.nearestPoints"), 
         "LINESTRING (1 1, 1 1)\nLINESTRING (11 1, 11 1)" );
@@ -170,6 +197,28 @@ public class JTSOpCmdTest extends TestCase {
     List<Geometry> results = cmd.getResultGeometry();
     assertTrue("Not enough results for arg values",  results.size() == 4 );
     assertEquals("Incorrect summary value for arg values",  computeArea(results), 93.6, 1);
+  }
+
+  public void testWhereValid() {
+    JTSOpCmd cmd = runCmd( args(
+        "-a", "POLYGON ((1 9, 9 9, 9 1, 1 1, 1 9))", 
+        "-f", "wkt", 
+        "-where", "1",
+        "isValid" ), 
+        null, null );
+    List<Geometry> results = cmd.getResultGeometry();
+    assertTrue("Not enough results for arg values",  results.size() == 1 );
+  }
+
+  public void testWhereInvalid() {
+    JTSOpCmd cmd = runCmd( args(
+        "-a", "POLYGON ((1 9, 9 1, 9 9, 1 1, 1 9))", 
+        "-f", "wkt", 
+        "-where","0",
+        "isValid" ), 
+        null, null );
+    List<Geometry> results = cmd.getResultGeometry();
+    assertTrue("Not enough results for arg values",  results.size() == 1 );
   }
 
   //----------------------------------------------------------------
@@ -300,12 +349,14 @@ public class JTSOpCmdTest extends TestCase {
         "POLYGON" );
   }
   
+  /*
+  // no longer supporting this semantic
   public void testGeomABStdIn() {
     runCmd( args("-ab", "stdin", "-f", "wkt", "Overlay.intersection"), 
         stdin("MULTILINESTRING (( 1 1, 3 3), (1 3, 3 1))"),
         "POINT (2 2)" );
   }
-  
+  */
 
   public void testErrorStdInBadFormat() {
     runCmdError( args("-a", "stdin", "-f", "wkt", "envelope"), 
@@ -320,6 +371,17 @@ public class JTSOpCmdTest extends TestCase {
   private static InputStream stdin(String data) {
     InputStream instr = new ByteArrayInputStream(data.getBytes(Charset.forName("UTF-8")));
     return instr;
+  }
+  
+  private static InputStream stdin(String[] dataArr) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < dataArr.length; i++) {
+      sb.append(dataArr[i]);
+      if (i < dataArr.length - 1) {
+        sb.append("\n");
+      }
+    }
+    return stdin(sb.toString());
   }
   
   private static InputStream stdinFile(String filename) {
